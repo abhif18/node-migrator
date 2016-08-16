@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <div id="page1">
+    <form type="POST" action="http://localhost:4000/upload" type="multipart/form-data">
+        <div class="form-group">
+            <label for="sel1">Select list:</label>
+            <select class="form-control" id="sel1">
+                <option>IIT K</option>
+                <option>IIT D</option>
+                <option>IIT M</option>
+                <option>IIT G</option>
+            </select>
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon" id="basic-addon1">Choose CSV File</span>
+            <input type="file" id="csvfile" name="csvfile">
+        </div><br>
+
+        <div class="input-group">
+            <span class="input-group-addon" id="result-name">Result Schema Name</span>
+            <input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1">
+        </div><br>
+        <div class="input-group">
+            <span class="input-group-addon" id="date">Publish Date</span>
+            <input type="date" class="form-control" placeholder="Username" aria-describedby="basic-addon1">
+        </div><br>
+        <input type="submit" class="btn btn-lg" id="upload-page">Save Result Profile</input>
+    </form>
+    </div>
+
+    <div id="page2">
+    <h2>Result Information</h2>
+        <div id="student-info">
+            <h3>Student Information</h3>
+            <div id="std-schema-cols">
+                <div class="input-group">
+                    <span class="input-group-addon" id="roll-no">Roll No</span>
+                    <input type="text" class="form-control" placeholder="Username" aria-describedby="roll-no">
+                </div><br>
+                <div class="input-group">
+                    <span class="input-group-addon" id="name">Name</span>
+                    <input type="text" class="form-control" placeholder="Username" aria-describedby="name">
+                </div><br>
+            </div>
+            <button class="btn btn-lg btn-primary" id="add-more-std-details">Add More</button>
+            <br>
+            <br>
+  
+<button class="btn btn-lg btn-primary" id="add-row">Add Row</button>
+<button class="btn btn-lg btn-primary" id="add-col">Add Column</button><br>
+<br>
+            <table class="table table-striped">
+  <thead>
+    <tr>
+      <th><input type="text" placeholder="Subject Name"></input></th>
+      <th><input type="text" placeholder="Marks"></input></th>
+      <th><input type="text" placeholder="Grand Total"></input></th>
+      <th><input type="text" placeholder="Division"></input></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row"><input type="text" placeholder="Subject Name"></input></th>
+      <td><select class="dropdown-select"></select></td>
+      <td><select class="dropdown-select"></select></td>
+      <td><select class="dropdown-select"></select></td>
+    </tr>
+    <tr>
+      <th scope="row"><input type="text" placeholder="Subject Name"></th>
+      <td><select class="dropdown-select"></select></td>
+      <td><select class="dropdown-select"></select></td>
+      <td><select class="dropdown-select"></select></td>
+    </tr>
+    <tr>
+      <th scope="row"><input type="text" placeholder="Subject Name"></th>
+      <td><select class="dropdown-select"></select></td>
+      <td><select class="dropdown-select"></select></td>
+      <td><select class="dropdown-select"></select></td>
+    </tr>
+        <tr>
+      <th scope="row"><input type="text" placeholder="Subject Name"></th>
+      <td><select class="dropdown-select"></select></td>
+      <td><select class="dropdown-select"></select></td>
+      <td><select class="dropdown-select"></select></td>
+    </tr>
+        <tr>
+      <th scope="row"><input type="text" placeholder="Subject Name"></th>
+      <td><select class="dropdown-select"></select></td>
+      <td><select class="dropdown-select"></select></td>
+      <td><select class="dropdown-select"></select></td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<button class="btn btn-lg btn-primary" id="gen-schema">Generate Schema</button>
+        </div>
+        <div class="modal fade" id="add-col-model">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title">Add Column</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="input-group">
+                            <span class="input-group-addon" id="roll-no">CSV Field</span>
+                            <select class="dropdown-select" id="modal-csv"></select>
+                        </div><br>
+                        <div class="input-group">
+                            <span class="input-group-addon" id="name">MySql Field</span>
+                            <input type="text" class="form-control" id="modal-sql" placeholder="Username" aria-describedby="name">
+                        </div><br>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" id="addcol" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+    </div>
+</div>
+<script src="js/jquery.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script>
+var name,val;
+    $(function(){
+        $('#add-more-std-details').on('click',function(){
+                $('#add-col-model').modal('show')
+            });
+
+    $('#std-schema-cols').on('click','.input-group-addon',function(){
+        var in1 = window.prompt('Enter the Table Column Name');
+
+    });
+
+    $('#addcol').on('click',function(){
+        name = items[parseInt($('#modal-csv').val())-1].text;
+        val = $('#modal-sql').val();
+        $('#std-schema-cols').append('<div class="input-group"><span class="input-group-addon" id="name">'+name+'</span><input type="text" class="form-control" disabled="disabled" value="'+val+'" placeholder="Username"><span class="glyphicon glyphicon-remove"></span></div><br>');
+        $('#add-col-model').modal('hide');
+    });
+
+ var items = [{
+    value: '1',
+    text: 'ABC'
+              },
+              {
+    value: '2',
+    text: 'DEF'
+              },
+              {
+    value: '3',
+    text: 'MNO'
+              },
+              {
+    value: '4',
+    text: 'PQR'
+              },
+              {
+    value: '5',
+    text: 'STU'
+              },
+              {
+    value: '6',
+    text: 'XYZ'
+              },
+              {
+    value: '7',
+    text: '123'
+              }];
+
+     $('.dropdown-select').append($('<option>', { 
+        value: null,
+        text : 'None' 
+    }));
+
+     $.each(items, function (i, item) {
+    $('.dropdown-select').append($('<option>', { 
+        value: item.value,
+        text : item.text 
+    }));
+    });//Each loop ends
+
+
+  $('#add-col').on('click',function(){
+    $('thead tr').append('<th><input type="text" placeholder="Header"></input></th>');
+    var elems = $('tbody').children();
+    $.each(elems,function(i,elem){
+      $(elem).append('<td><select class="dropdown-select"></select></td>');
+      $('.dropdown-select').append($('<option>', { 
+        value: 0,
+        text : 'None' 
+    }));
+       $.each(items, function (i, item) {
+    $('.dropdown-select').append($('<option>', { 
+        value: item.value,
+        text : item.text 
+    }));
+    });//Each loop ends
+    });
+  });
+ var file;
+  var data = new FormData();
+  $('csvfile').on('change',function(event){
+    file = event.target.file;
+    data.append('csvfile',file);
+  });
+
+  $('#upload-page1').on('click',function(){
+    console.log('Uploading');
+    $.ajax({
+      type: "POST",
+      url: "http://localhost:4000/upload",
+      data: data
+      }).then(function(data){
+        console.log(data);
+      },function(err){
+        console.log(err);
+      });
+  });
+
+var schema = [];
+
+    $('#gen-schema').on('click',function(){
+      
+      schema = [];
+      var i=1,j=1;
+      var obj ={};
+      var elem = $('thead tr').children();
+      $.each(elem,function(idx,item){
+        obj['0'+idx] = $(item).find('input').val();
+      });
+       schema.push(obj);
+    console.log('Table Header is '+schema[0]);
+
+    var elems = $('tbody').children();
+    //For each tr in tbody loop and insert the text of select
+    $.each(elems,function(trIdx,tr){
+      obj = {};
+      elem = $(tr).children();
+       $.each(elem,function(idx,item){
+        if(idx == 0){
+        obj[(trIdx+1)+''+idx] = $(item).find('input').val(); 
+        }
+        else{
+        obj[(trIdx+1)+''+idx] = $(item).find('option:selected').text();
+        //console.log(items[$(item).find('select').val()].text);
+      }
+      });
+       schema.push(obj);
+    });
+       console.log(schema);
+     $.ajax({
+      type: "POST",
+      url: "http://localhost:4000/saveschema",
+      dataType : "json",
+      contentType: "application/json; charset=utf-8",
+      data: schema
+     }).then(function(){
+        console.log('Success');
+     },function(err){
+        console.log(res);
+     });
+    
+    });//Generate Schema onCLick ends
+   
+     });//onLoad() Ends
+
+</script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+{
+  "name": "migrator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "connect-busboy": "0.0.2",
+    "csvtojson": "^1.0.0",
+    "line-stream-util": "^1.2.0",
+    "mysql": "^2.11.1",
+    "sequelize": "^3.24.0"
+  },
+  "devDependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "morgan": "^1.7.0",
+    "node-7z": "^0.4.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Abhishek Srivastava",
+  "license": "ISC"
+}
